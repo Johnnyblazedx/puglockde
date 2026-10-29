@@ -101,7 +101,10 @@ section.block { padding: clamp(2.5rem, 7vw, 4.5rem) 0; border-top: 1px solid var
 .schritte li::before { content: counter(s); position: absolute; left: 1.1rem; top: .75rem; font-weight: 900; font-size: 1.8rem; color: var(--gruen); }
 
 /* ---------- Videos: quadratische Play-Kacheln in der Button-Zeile, Player hochkant im Overlay ---------- */
-.aktionen { align-items: center; }
+.aktionen { align-items: flex-end; }
+.video-gruppe { display: flex; flex-direction: column; gap: .35rem; }
+.video-label { color: var(--sekundaer); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; line-height: 1; }
+.video-kacheln { display: flex; gap: .75rem; }
 .video-kachel {
   width: 88px; height: 88px; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem;
   padding: 0; border: 1px solid var(--linie); cursor: pointer; font: inherit; color: var(--text);
@@ -162,7 +165,16 @@ a.kachel:hover { border-color: var(--gruen); transform: translateY(-2px); }
 .kachel p { margin: 0; color: var(--sekundaer); }
 .kachel .datum { color: var(--gold); font-weight: 800; text-transform: uppercase; margin-top: .9rem; }
 
+/* ---------- Rechtstexte ---------- */
+.rechtstext { max-width: 760px; padding-top: clamp(2.5rem, 7vw, 4rem); padding-bottom: 3rem; }
+.rechtstext h1 { font-size: clamp(2.4rem, 8vw, 4rem); hyphens: manual; }
+.rechtstext h2 { font-size: 1.6rem; margin: 2.25rem 0 .75rem; }
+.rechtstext p, .rechtstext li { color: #c9cdc8; }
+.rechtstext ul { padding-left: 1.2rem; }
+.rechtstext li { margin-bottom: .35rem; }
+
 /* ---------- Fuss ---------- */
+.fuss nav { display: flex; gap: 1.25rem; }
 .fuss { border-top: 1px solid var(--linie); padding: 2rem 0 3rem; color: var(--sekundaer); font-size: 1rem; }
 .fuss .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
 .fuss a { color: var(--sekundaer); }

@@ -73,13 +73,14 @@
     return (liste || []).filter(function (v) { return PLATTFORMEN[v.plattform] && !leer(v.id); });
   }
 
-  // Quadratische Play-Kacheln fuer die Button-Zeile oben
+  // Quadratische Play-Kacheln fuer die Button-Zeile oben, mit Ueberschrift "Ankuendigung"
   function videoKacheln(liste) {
-    return gueltigeVideos(liste).map(function (v, i) {
+    var kacheln = gueltigeVideos(liste).map(function (v, i) {
       var p = PLATTFORMEN[v.plattform];
       return '<button type="button" class="video-kachel" data-nr="' + i + '" aria-label="Ankündigung auf ' + p.name + ' abspielen">' +
         '<span class="video-play" aria-hidden="true"></span><span class="video-plattform">' + p.name + "</span></button>";
     }).join("");
+    return kacheln && '<div class="video-gruppe"><span class="video-label">Ankündigung</span><div class="video-kacheln">' + kacheln + "</div></div>";
   }
 
   // Abspielen hochkant in einem Overlay; beim Schliessen wird der Player entfernt (stoppt den Ton)
