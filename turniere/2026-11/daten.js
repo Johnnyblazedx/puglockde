@@ -18,6 +18,12 @@ window.TURNIER = {
 
   twitch: "https://twitch.tv/johnnyblazedx",
 
+  // Ankuendigungsvideos: plattform "youtube" oder "tiktok", id aus dem Link, link = Originalseite
+  videos: [
+    { plattform: "tiktok", id: "7702177872710061334", link: "https://www.tiktok.com/@johnnyblazedx/video/7702177872710061334" },
+    { plattform: "youtube", id: "_My5zQ-HZsI", link: "https://www.youtube.com/shorts/_My5zQ-HZsI" }
+  ],
+
   anmeldung: {
     link: "",          // z. B. Discord-Einladung oder Formular-Link; leer = Button "Anmeldung folgt"
     schluss: "",       // z. B. "Do 05.11. 20 Uhr"

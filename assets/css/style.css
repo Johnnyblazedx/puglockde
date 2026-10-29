@@ -100,6 +100,26 @@ section.block { padding: clamp(2.5rem, 7vw, 4.5rem) 0; border-top: 1px solid var
 .schritte li { counter-increment: s; background: var(--flaeche); border: 1px solid var(--linie); padding: 1rem 1.1rem 1rem 3.6rem; position: relative; }
 .schritte li::before { content: counter(s); position: absolute; left: 1.1rem; top: .75rem; font-weight: 900; font-size: 1.8rem; color: var(--gruen); }
 
+/* ---------- Videos (hochkant 9:16, laden erst nach Klick) ---------- */
+.videos { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.video { margin: 0; flex: 0 1 320px; min-width: 0; }
+.video-rahmen { aspect-ratio: 9 / 16; background: var(--flaeche); border: 1px solid var(--linie); position: relative; overflow: hidden; }
+.video-rahmen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-start {
+  position: absolute; inset: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem;
+  padding: 1.5rem; border: 0; cursor: pointer; font: inherit; color: var(--text); text-align: center;
+  background: radial-gradient(70% 50% at 50% 40%, rgba(63, 210, 127, .14), transparent 70%), var(--flaeche);
+}
+.video-play { width: 76px; height: 76px; border-radius: 50%; background: var(--gruen); position: relative; transition: transform .15s; }
+.video-play::after { content: ""; position: absolute; left: 31px; top: 24px; border-left: 24px solid var(--anthrazit); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+.video-start:hover .video-play { transform: scale(1.06); }
+.video-plattform { font-weight: 900; font-size: 1.9rem; text-transform: uppercase; }
+.video-hinweis { color: var(--sekundaer); font-size: .95rem; max-width: 24ch; }
+.video figcaption { margin-top: .6rem; }
+.video figcaption a { font-weight: 600; text-transform: uppercase; text-decoration: none; font-size: 1rem; }
+.video figcaption a:hover { text-decoration: underline; }
+@media (max-width: 560px) { .video { flex-basis: 100%; } .video-rahmen { max-width: 340px; margin: 0 auto; } }
+
 /* ---------- Turnierbaum ---------- */
 .baum { display: grid; grid-template-columns: 1fr 48px 1fr; align-items: center; gap: 0; max-width: 760px; }
 .baum .runde { display: grid; gap: 1.5rem; }

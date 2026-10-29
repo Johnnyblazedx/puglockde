@@ -63,6 +63,37 @@
     tick();
   }
 
+  // Videos erst nach Klick laden (Zwei-Klick-Loesung): vorher gehen keine Daten an YouTube/TikTok
+  var PLATTFORMEN = {
+    youtube: { name: "YouTube", src: function (id) { return "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0&playsinline=1"; } },
+    tiktok: { name: "TikTok", src: function (id) { return "https://www.tiktok.com/player/v1/" + encodeURIComponent(id) + "?autoplay=1&description=1&music_info=1&rel=0"; } }
+  };
+
+  function videos(liste) {
+    var box = $("#videos");
+    if (!box) return;
+    liste = (liste || []).filter(function (v) { return PLATTFORMEN[v.plattform] && !leer(v.id); });
+    if (!liste.length) { var block = $("#videos-block"); if (block) block.hidden = true; return; }
+    box.innerHTML = liste.map(function (v, i) {
+      var p = PLATTFORMEN[v.plattform];
+      return '<figure class="video">' +
+        '<div class="video-rahmen" data-nr="' + i + '">' +
+        '<button type="button" class="video-start" aria-label="' + p.name + '-Video abspielen">' +
+        '<span class="video-play" aria-hidden="true"></span>' +
+        '<span class="video-plattform">' + p.name + "</span>" +
+        '<span class="video-hinweis">Beim Abspielen werden Daten an ' + p.name + " übertragen.</span>" +
+        "</button></div>" +
+        '<figcaption><a href="' + esc(v.link) + '" target="_blank" rel="noopener">Auf ' + p.name + " ansehen ↗</a></figcaption>" +
+        "</figure>";
+    }).join("");
+    box.addEventListener("click", function (e) {
+      var btn = e.target.closest(".video-start");
+      if (!btn) return;
+      var rahmen = btn.parentNode, v = liste[+rahmen.getAttribute("data-nr")], p = PLATTFORMEN[v.plattform];
+      rahmen.innerHTML = '<iframe src="' + esc(p.src(v.id)) + '" title="' + p.name + '-Video" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share" allowfullscreen></iframe>';
+    });
+  }
+
   function turnier() {
     var t = window.TURNIER;
     if (!t) return;
@@ -78,6 +109,8 @@
       return '<div class="fakt"><dt>' + f[0] + "</dt><dd" + (leer(f[1]) ? ' class="offen">folgt' : ">" + esc(f[1])) + "</dd></div>";
     }).join(""));
     countdown(t.start);
+
+    videos(t.videos);
 
     // Anmeldung
     var a = t.anmeldung || {};
