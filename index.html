@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deadlock PUG</title>
+  <meta name="description" content="Deadlock-Turniere und Community-Projekte für Deutschland, Österreich und die Schweiz.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/BarlowCondensed-Black.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="kopf">
+    <div class="wrap">
+      <a class="marke" href="./">Deadlock <span>PUG</span></a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#projekte-block">Projekte</a>
+        <a href="https://twitch.tv/johnnyblazedx" target="_blank" rel="noopener">Twitch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">DE · AT · CH</p>
+        <h1>Deadlock<span class="zeile2">Community</span></h1>
+        <p class="lead">Turniere und Projekte rund um Deadlock – live auf Twitch.</p>
+        <div class="aktionen">
+          <a class="btn btn-primaer" href="turniere/2026-11/">Zum Turnier</a>
+          <a class="btn btn-sekundaer" href="https://twitch.tv/johnnyblazedx" target="_blank" rel="noopener"><img src="assets/img/twitch.png" alt="" width="22" height="22">twitch.tv/johnnyblazedx</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="projekte-block">
+      <div class="wrap">
+        <h2>Projekte</h2>
+        <div class="kacheln" id="projekte"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fuss">
+    <div class="wrap">
+      <span>© <span id="jahr"></span> Deadlock PUG · Community-Projekt, nicht mit Valve verbunden.</span>
+      <a href="https://twitch.tv/johnnyblazedx" target="_blank" rel="noopener">Twitch</a>
+    </div>
+  </footer>
+
+  <script src="data/projekte.js"></script>
+  <script src="assets/js/seite.js"></script>
+</body>
+</html>

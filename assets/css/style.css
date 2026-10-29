@@ -1,0 +1,146 @@
+/* Deadlock PUG – gleiche Farben und Schrift wie im Trailer (config/turnier.json) */
+
+@font-face { font-family: "Barlow Condensed"; font-weight: 500; font-display: swap; src: url("../fonts/BarlowCondensed-Medium.ttf") format("truetype"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 600; font-display: swap; src: url("../fonts/BarlowCondensed-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 800; font-display: swap; src: url("../fonts/BarlowCondensed-ExtraBold.ttf") format("truetype"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 900; font-display: swap; src: url("../fonts/BarlowCondensed-Black.ttf") format("truetype"); }
+
+:root {
+  --anthrazit: #111417;
+  --flaeche: #181c20;
+  --flaeche-2: #1f2429;
+  --linie: #2c3238;
+  --text: #EDEFEA;
+  --sekundaer: #8C939A;
+  --gruen: #3FD27F;
+  --gold: #C8A45A;
+  --fehlt: #FF4D4D;
+  --rand: 16px;
+  --breite: 1080px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--anthrazit);
+  color: var(--text);
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gruen); }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: .01em; }
+h1 { font-weight: 900; font-size: clamp(3rem, 11vw, 6.5rem); }
+h2 { font-weight: 900; font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 1.25rem; }
+h3 { font-weight: 800; font-size: 1.5rem; }
+
+.wrap { max-width: var(--breite); margin: 0 auto; padding: 0 var(--rand); }
+@media (min-width: 720px) { :root { --rand: 32px; } }
+
+/* ---------- Kopfzeile ---------- */
+.kopf { border-bottom: 1px solid var(--linie); position: sticky; top: 0; background: rgba(17, 20, 23, .92); backdrop-filter: blur(8px); z-index: 10; }
+.kopf .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 60px; }
+.marke { font-weight: 900; font-size: 1.5rem; text-transform: uppercase; color: var(--text); text-decoration: none; letter-spacing: .02em; }
+.marke span { color: var(--gruen); }
+.kopf nav { display: flex; gap: 1.25rem; }
+.kopf nav a { color: var(--sekundaer); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 1rem; }
+.kopf nav a:hover { color: var(--text); }
+@media (max-width: 560px) { .kopf nav .optional { display: none; } }
+
+/* ---------- Hero ---------- */
+.hero { padding: clamp(3rem, 10vw, 6rem) 0 clamp(2.5rem, 7vw, 4rem); position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 60% at 85% 10%, rgba(63, 210, 127, .12), transparent 70%);
+}
+.hero .zeile2 { color: var(--gruen); display: block; }
+.eyebrow { color: var(--sekundaer); font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: .95rem; margin-bottom: 1rem; }
+.flaggen { display: flex; gap: .6rem; margin: 1.5rem 0 0; }
+.flaggen svg { width: 54px; height: 36px; border: 1px solid var(--linie); }
+.lead { color: var(--sekundaer); font-size: 1.3rem; max-width: 34ch; margin: 1.25rem 0 0; }
+
+/* ---------- Fakten / Countdown ---------- */
+/* Flex statt Grid: Kaesten fuellen jede Zeile ganz aus, auch wenn die Anzahl nicht aufgeht */
+.fakten { display: flex; flex-wrap: wrap; gap: 1px; background: var(--linie); border: 1px solid var(--linie); margin: 2.5rem 0 0; }
+.fakt { flex: 1 1 150px; background: var(--flaeche); padding: 1rem 1.1rem; }
+.fakt dt { color: var(--sekundaer); font-weight: 600; text-transform: uppercase; font-size: .9rem; letter-spacing: .08em; }
+.fakt dd { margin: .2rem 0 0; font-weight: 800; font-size: 1.6rem; text-transform: uppercase; color: var(--gold); }
+.fakt dd.offen { color: var(--sekundaer); font-weight: 600; font-size: 1.2rem; }
+
+.countdown { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.countdown div { background: var(--flaeche); border: 1px solid var(--linie); min-width: 76px; padding: .6rem .8rem; text-align: center; }
+.countdown b { display: block; font-weight: 900; font-size: 2.2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.countdown span { color: var(--sekundaer); font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
+
+/* ---------- Buttons ---------- */
+.aktionen { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 2rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .6rem; min-height: 48px; padding: .6rem 1.4rem;
+  font: inherit; font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: .03em;
+  text-decoration: none; border: 2px solid var(--gruen); cursor: pointer;
+}
+.btn-primaer { background: var(--gruen); color: var(--anthrazit); }
+.btn-primaer:hover { filter: brightness(1.08); }
+.btn-sekundaer { background: transparent; color: var(--text); border-color: var(--linie); }
+.btn-sekundaer:hover { border-color: var(--text); }
+.btn[aria-disabled="true"] { background: var(--flaeche-2); border-color: var(--linie); color: var(--sekundaer); cursor: default; }
+.btn img { height: 22px; width: auto; }
+
+/* ---------- Abschnitte ---------- */
+section.block { padding: clamp(2.5rem, 7vw, 4.5rem) 0; border-top: 1px solid var(--linie); }
+.hinweis { color: var(--sekundaer); }
+.offen-text { color: var(--sekundaer); font-style: normal; border-left: 3px solid var(--linie); padding-left: .9rem; }
+
+.schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; counter-reset: s; }
+.schritte li { counter-increment: s; background: var(--flaeche); border: 1px solid var(--linie); padding: 1rem 1.1rem 1rem 3.6rem; position: relative; }
+.schritte li::before { content: counter(s); position: absolute; left: 1.1rem; top: .75rem; font-weight: 900; font-size: 1.8rem; color: var(--gruen); }
+
+/* ---------- Turnierbaum ---------- */
+.baum { display: grid; grid-template-columns: 1fr 48px 1fr; align-items: center; gap: 0; max-width: 760px; }
+.baum .runde { display: grid; gap: 1.5rem; }
+.baum .verbinder { align-self: stretch; position: relative; }
+.baum .verbinder::before { content: ""; position: absolute; left: 0; right: 50%; top: 25%; bottom: 25%; border: 2px solid var(--gruen); border-left: 0; }
+.baum .verbinder::after { content: ""; position: absolute; left: 50%; right: 0; top: 50%; border-top: 2px solid var(--gruen); }
+.spiel { border: 1px solid var(--linie); background: var(--flaeche); }
+.spiel .titel { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--sekundaer); padding: .35rem .8rem; border-bottom: 1px solid var(--linie); }
+.team { display: flex; justify-content: space-between; gap: .75rem; padding: .55rem .8rem; font-weight: 800; text-transform: uppercase; font-size: 1.2rem; }
+.team + .team { border-top: 1px solid var(--linie); }
+.team .punkte { color: var(--sekundaer); font-variant-numeric: tabular-nums; }
+.team.sieger { color: var(--gold); }
+.team.sieger .punkte { color: var(--gold); }
+.team .krone { width: 18px; height: 14px; margin-right: .35rem; vertical-align: -1px; display: inline-block; }
+.finale { border-color: var(--gruen); box-shadow: 0 0 0 1px var(--gruen) inset; }
+@media (max-width: 560px) {
+  .baum { grid-template-columns: 1fr; gap: 1.5rem; }
+  .baum .verbinder { display: none; }
+}
+
+.teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+.team-karte { background: var(--flaeche); border: 1px solid var(--linie); padding: 1rem 1.1rem; }
+.team-karte h3 { font-size: 1.35rem; }
+.team-karte p { margin: .35rem 0 0; color: var(--sekundaer); }
+
+/* ---------- Projekt-Kacheln ---------- */
+.kacheln { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+.kachel { display: block; background: var(--flaeche); border: 1px solid var(--linie); padding: 1.25rem; text-decoration: none; color: var(--text); transition: border-color .15s, transform .15s; }
+a.kachel:hover { border-color: var(--gruen); transform: translateY(-2px); }
+.kachel .status { display: inline-block; font-weight: 800; text-transform: uppercase; font-size: .85rem; letter-spacing: .08em; padding: .15rem .5rem; background: var(--gruen); color: var(--anthrazit); }
+.kachel .status.geplant { background: var(--flaeche-2); color: var(--sekundaer); }
+.kachel .status.vorbei { background: var(--flaeche-2); color: var(--gold); }
+.kachel h3 { margin: .9rem 0 .4rem; font-size: 1.8rem; }
+.kachel p { margin: 0; color: var(--sekundaer); }
+.kachel .datum { color: var(--gold); font-weight: 800; text-transform: uppercase; margin-top: .9rem; }
+
+/* ---------- Fuss ---------- */
+.fuss { border-top: 1px solid var(--linie); padding: 2rem 0 3rem; color: var(--sekundaer); font-size: 1rem; }
+.fuss .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+.fuss a { color: var(--sekundaer); }
+.fuss a:hover { color: var(--text); }
+
+:focus-visible { outline: 2px solid var(--gruen); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
