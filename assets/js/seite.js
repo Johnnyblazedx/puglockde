@@ -69,28 +69,39 @@
     tiktok: { name: "TikTok", src: function (id) { return "https://www.tiktok.com/player/v1/" + encodeURIComponent(id) + "?autoplay=1&description=1&music_info=1&rel=0"; } }
   };
 
-  function videos(liste) {
-    var box = $("#videos");
-    if (!box) return;
-    liste = (liste || []).filter(function (v) { return PLATTFORMEN[v.plattform] && !leer(v.id); });
-    if (!liste.length) { var block = $("#videos-block"); if (block) block.hidden = true; return; }
-    box.innerHTML = liste.map(function (v, i) {
+  function gueltigeVideos(liste) {
+    return (liste || []).filter(function (v) { return PLATTFORMEN[v.plattform] && !leer(v.id); });
+  }
+
+  // Quadratische Play-Kacheln fuer die Button-Zeile oben
+  function videoKacheln(liste) {
+    return gueltigeVideos(liste).map(function (v, i) {
       var p = PLATTFORMEN[v.plattform];
-      return '<figure class="video">' +
-        '<div class="video-rahmen" data-nr="' + i + '">' +
-        '<button type="button" class="video-start" aria-label="' + p.name + '-Video abspielen">' +
-        '<span class="video-play" aria-hidden="true"></span>' +
-        '<span class="video-plattform">' + p.name + "</span>" +
-        '<span class="video-hinweis">Beim Abspielen werden Daten an ' + p.name + " übertragen.</span>" +
-        "</button></div>" +
-        '<figcaption><a href="' + esc(v.link) + '" target="_blank" rel="noopener">Auf ' + p.name + " ansehen ↗</a></figcaption>" +
-        "</figure>";
+      return '<button type="button" class="video-kachel" data-nr="' + i + '" aria-label="Ankündigung auf ' + p.name + ' abspielen">' +
+        '<span class="video-play" aria-hidden="true"></span><span class="video-plattform">' + p.name + "</span></button>";
     }).join("");
-    box.addEventListener("click", function (e) {
-      var btn = e.target.closest(".video-start");
-      if (!btn) return;
-      var rahmen = btn.parentNode, v = liste[+rahmen.getAttribute("data-nr")], p = PLATTFORMEN[v.plattform];
-      rahmen.innerHTML = '<iframe src="' + esc(p.src(v.id)) + '" title="' + p.name + '-Video" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share" allowfullscreen></iframe>';
+  }
+
+  // Abspielen hochkant in einem Overlay; beim Schliessen wird der Player entfernt (stoppt den Ton)
+  function videoPlayer(liste) {
+    liste = gueltigeVideos(liste);
+    if (!liste.length) return;
+    var dlg = document.createElement("dialog");
+    dlg.className = "video-dialog";
+    dlg.setAttribute("aria-label", "Ankündigungsvideo");
+    document.body.appendChild(dlg);
+    dlg.addEventListener("close", function () { dlg.innerHTML = ""; });
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg || e.target.closest(".video-schliessen")) dlg.close();
+    });
+    document.addEventListener("click", function (e) {
+      var k = e.target.closest(".video-kachel");
+      if (!k) return;
+      var v = liste[+k.getAttribute("data-nr")], p = PLATTFORMEN[v.plattform];
+      dlg.innerHTML = '<div class="video-dialog-kopf"><a href="' + esc(v.link) + '" target="_blank" rel="noopener">Auf ' + p.name + ' ansehen ↗</a>' +
+        '<button type="button" class="video-schliessen" aria-label="Schließen">✕</button></div>' +
+        '<div class="video-rahmen"><iframe src="' + esc(p.src(v.id)) + '" title="' + p.name + '-Video" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+      dlg.showModal();
     });
   }
 
@@ -110,8 +121,6 @@
     }).join(""));
     countdown(t.start);
 
-    videos(t.videos);
-
     // Anmeldung
     var a = t.anmeldung || {};
     var btn = leer(a.link)
@@ -119,7 +128,10 @@
       : '<a class="btn btn-primaer" href="' + esc(a.link) + '" target="_blank" rel="noopener">Jetzt anmelden</a>';
     var twitch = '<a class="btn btn-sekundaer" href="' + esc(t.twitch) + '" target="_blank" rel="noopener">' +
       '<img src="../../assets/img/twitch.png" alt="" width="22" height="22">' + esc(t.twitch.replace(/^https?:\/\//, "")) + "</a>";
-    setHtml("#aktionen", btn + twitch);
+    var kacheln = videoKacheln(t.videos);
+    setHtml("#aktionen", btn + twitch + kacheln);
+    setHtml("#video-hinweis", kacheln ? "Die Videos laden erst beim Abspielen – dabei werden Daten an TikTok bzw. YouTube übertragen." : "");
+    videoPlayer(t.videos);
 
     var anmeldeInfos = [["Anmeldeschluss", a.schluss], ["Plätze", a.plaetze]].filter(function (x) { return !leer(x[1]); });
     setHtml("#anmeldung-infos",
