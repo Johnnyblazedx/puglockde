@@ -25,10 +25,10 @@ window.TURNIER = {
   ],
 
   anmeldung: {
-    link: "",          // z. B. Discord-Einladung oder Formular-Link; leer = Button "Anmeldung folgt"
+    link: "https://discord.gg/22cEab4WaV",   // Discord "Puglock Germany"; leer = Button "Anmeldung folgt"
     schluss: "",       // z. B. "Do 05.11. 20 Uhr"
     plaetze: "",       // z. B. "24 Spieler"
-    hinweis: ""        // kurzer Satz unter dem Button
+    hinweis: "Die Anmeldung läuft über unseren Discord-Server „Puglock Germany“."   // kurzer Satz unter dem Button
   },
 
   // Ablauf in Schritten, z. B. "Die Teamkapitaene waehlen abwechselnd ihre Spieler."
